@@ -8,7 +8,27 @@ function App() {
     setDisplay(char);
     setCharArray([...charArray, char]);
   };
- 
+  const handleResult = () => {
+    const result = charArray
+      .join("")
+      .split(/(\D)/g)
+      .map((char) => (char.match(/\d/g) ? parseInt(char, 0) : char))
+      .reduce((acc, char, i, arr) => {
+        if (char === "+") {
+          return (acc = acc + arr[i + 1]);
+        } else if (char === "-") {
+          return (acc = acc - arr[i + 1]);
+        } else if (char === "x") {
+          return (acc = acc * arr[i + 1]);
+        } else if (char === "÷") {
+          return (acc = acc / arr[i + 1]);
+        } else {
+          return acc;
+        }
+      });
+    setDisplay(result);
+    setCharArray("");
+  };
   return (
     <div className="App">
       <h1>Leila Calculator</h1>
@@ -28,7 +48,7 @@ function App() {
           <button onClick={() => handleClick(0)}>0</button>
         </section>
         <section className="operators">
-          <button onClick={() => handleClick("/")}>/</button>
+          <button onClick={() => handleClick("÷")}>÷</button>
           <button onClick={() => handleClick("x")}>x</button>
           <button onClick={() => handleClick("-")}>-</button>
           <button onClick={() => handleClick("+")}>+</button>
