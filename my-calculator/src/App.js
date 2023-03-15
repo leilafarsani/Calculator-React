@@ -4,6 +4,12 @@ import "./App.css";
 function App() {
   const [display, setDisplay] = useState("");
   const [charArray, setCharArray] = useState([]);
+
+  const handleClear=() =>{
+    setDisplay(0);
+    setCharArray([]);
+  }
+ 
   const handleClick = (char) => {
     setDisplay(char);
     setCharArray([...charArray, char]);
@@ -22,6 +28,8 @@ function App() {
           return (acc = acc * arr[i + 1]);
         } else if (char === "÷") {
           return (acc = acc / arr[i + 1]);
+        }else if (char === "%") {
+          return (acc = acc / 100);
         } else {
           return acc;
         }
@@ -32,10 +40,13 @@ function App() {
   return (
     <div className="App">
       <h1>Leila Calculator</h1>
-      <div>{display}</div>
-      <div>{charArray}</div>
+      <div className="display">{display}</div>
+      <div className="expression">{charArray}</div>
       <section className="panel">
         <section className="numbers">
+          <button onClick={() => handleClear("AC")}>AC</button>
+          <button onClick={() => handleClick("+/-")}>+/-</button>
+          <button onClick={() => handleClick("%")}>%</button>
           <button onClick={() => handleClick(7)}>7</button>
           <button onClick={() => handleClick(8)}>8</button>
           <button onClick={() => handleClick(9)}>9</button>
@@ -46,6 +57,7 @@ function App() {
           <button onClick={() => handleClick(2)}>2</button>
           <button onClick={() => handleClick(3)}>3</button>
           <button onClick={() => handleClick(0)}>0</button>
+          <button onClick={() => handleClick(".")}>.</button>
         </section>
         <section className="operators">
           <button onClick={() => handleClick("÷")}>÷</button>
