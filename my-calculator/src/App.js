@@ -4,12 +4,19 @@ import "./App.css";
 function App() {
   const [display, setDisplay] = useState("");
   const [charArray, setCharArray] = useState([]);
+ 
 
-  const handleClear=() =>{
+  const handleClear = () => {
     setDisplay(0);
     setCharArray([]);
+  };
+
+  function handleToggleSign(char) {
+    const newCharArray = (Number(charArray.join("")) * -1).toString();
+    const negative= "I'm not working";
+    //console.log(newCharArray);
+  newCharArray.match(/\d/g) ? setCharArray(newCharArray) : setCharArray(negative)
   }
- 
   const handleClick = (char) => {
     setDisplay(char);
     setCharArray([...charArray, char]);
@@ -24,12 +31,14 @@ function App() {
           return (acc = acc + arr[i + 1]);
         } else if (char === "-") {
           return (acc = acc - arr[i + 1]);
-        } else if (char === "x") {
+        } else if (char === "×") {
           return (acc = acc * arr[i + 1]);
         } else if (char === "÷") {
           return (acc = acc / arr[i + 1]);
-        }else if (char === "%") {
+        } else if (char === "%") {
           return (acc = acc / 100);
+        } else if (acc === ".") {
+          return (acc = acc / 10);
         } else {
           return acc;
         }
@@ -44,9 +53,19 @@ function App() {
       <div className="expression">{charArray}</div>
       <section className="panel">
         <section className="numbers">
-          <button onClick={() => handleClear("AC")}>AC</button>
-          <button onClick={() => handleClick("+/-")}>+/-</button>
-          <button onClick={() => handleClick("%")}>%</button>
+          <button className="top-button" onClick={() => handleClear("AC")}>
+            AC
+          </button>
+          <button
+            className="top-button"
+            onClick={() => handleToggleSign("+/-")}
+          >
+            +/-
+          </button>
+          <button className="top-button" onClick={() => handleClick("%")}>
+            %
+          </button>
+
           <button onClick={() => handleClick(7)}>7</button>
           <button onClick={() => handleClick(8)}>8</button>
           <button onClick={() => handleClick(9)}>9</button>
@@ -57,12 +76,13 @@ function App() {
           <button onClick={() => handleClick(2)}>2</button>
           <button onClick={() => handleClick(3)}>3</button>
           <button onClick={() => handleClick(0)}>0</button>
-          <button onClick={() => handleClick(".")}>.</button>
+        
+          
         </section>
         <section className="operators">
           <button onClick={() => handleClick("÷")}>÷</button>
-          <button onClick={() => handleClick("x")}>x</button>
-          <button onClick={() => handleClick("-")}>-</button>
+          <button onClick={() => handleClick("×")}>×</button>
+          <button onClick={() => handleClick("-")}>−</button>
           <button onClick={() => handleClick("+")}>+</button>
           <button onClick={() => handleResult()}>=</button>
         </section>
